@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>PAC-MAN: INFINITE NEON</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="arcade-container">
+    <div class="cabinet-main">
+      <!-- Header Marquee -->
+      <header class="arcade-header">
+        <div class="game-title">⚡ PAC-MAN NEON ⚡</div>
+        <div class="arcade-controls">
+          <button id="btnSound" class="arcade-btn" aria-label="Toggle Sound"><span class="btn-icon">🔊</span><span class="btn-label"> SOUND</span></button>
+          <button id="btnPause" class="arcade-btn" aria-label="Toggle Pause"><span class="btn-icon">⏸</span><span class="btn-label"> PAUSE</span></button>
+          <button id="btnHelp" class="arcade-btn" aria-label="Help"><span class="btn-icon">❓</span><span class="btn-label"> HELP</span></button>
+        </div>
+      </header>
+
+      <!-- Canvas Screen Bezel -->
+      <div class="screen-bezel">
+        <canvas id="gameCanvas"></canvas>
+        <div class="scanlines"></div>
+      </div>
+
+      <!-- Ghost AI Legend -->
+      <footer class="ghost-legend">
+        <div class="ghost-badge dot-blinky">■ BLINKY (CHASER)</div>
+        <div class="ghost-badge dot-pinky">■ PINKY (AMBUSHER)</div>
+        <div class="ghost-badge dot-inky">■ INKY (FLANKER)</div>
+        <div class="ghost-badge dot-clyde">■ CLYDE (POKEY)</div>
+      </footer>
+    </div>
+
+    <!-- Mobile On-Screen D-Pad -->
+    <div class="mobile-dpad">
+      <button class="dpad-btn dpad-up" id="dpadUp" aria-label="Up">▲</button>
+      <button class="dpad-btn dpad-left" id="dpadLeft" aria-label="Left">◀</button>
+      <button class="dpad-btn dpad-down" id="dpadDown" aria-label="Down">▼</button>
+      <button class="dpad-btn dpad-right" id="dpadRight" aria-label="Right">▶</button>
+    </div>
+  </div>
+
+  <!-- Help & Rules Modal -->
+  <div id="helpModal" class="modal-overlay">
+    <div class="modal-content">
+      <h2 class="modal-title">ARCADE INSTRUCTIONS</h2>
+      <ul class="modal-list">
+        <li>🕹️ <strong>CONTROLS:</strong>
+          <div style="margin-top: 4px; line-height: 1.6; color: #b3e5fc;">
+            • <strong>Keyboard:</strong> Arrows / WASD | P or ESC to Pause<br>
+            • <strong>Touch / Mobile:</strong> Fluid Swipe Gestures or On-screen D-pad<br>
+            • <strong>Mouse:</strong> Click/drag towards direction<br>
+            • <strong>Controller / Gamepad:</strong> D-Pad, Left Stick | Start to Pause
+          </div>
+        </li>
+        <li>✨ <strong>INFINITE MAZES:</strong> Every level generates a brand new symmetrical procedural labyrinth!</li>
+        <li>🔵 <strong>ENERGIZERS:</strong> Eat cyan power orbs to turn ghosts vulnerable. Chain ghost kills for 200, 400, 800, 1600 pts!</li>
+        <li>🍒 <strong>BONUS FRUITS:</strong> Spawns at 70 & 170 dots eaten beneath the ghost pen.</li>
+        <li>❤️ <strong>EXTRA LIFE:</strong> Awarded automatically at 10,000 points.</li>
+      </ul>
+      <button id="btnCloseHelp" class="arcade-btn modal-close">LET'S PLAY</button>
+    </div>
+  </div>
+
+  <script src="pacman.js"></script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  height: 100%;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+body {
+  background-color: #030308;
+  background-image: 
+    radial-gradient(ellipse at 50% 15%, rgba(0, 229, 255, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(255, 0, 127, 0.05) 0%, transparent 50%);
+  color: #ffffff;
+  font-family: 'Press Start 2P', monospace, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  touch-action: none;
+}
+
+/* Arcade Cabinet Wrapper */
+.arcade-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 100vw;
+  max-height: 100dvh;
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 4px;
+}
+
+.cabinet-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header Marquee */
+.arcade-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 5px 8px;
+  margin-bottom: 3px;
+  background: rgba(10, 10, 26, 0.85);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+  transition: max-width 0.05s ease;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.game-title {
+  font-size: 12px;
+  color: #ffea00;
+  text-shadow: 0 0 10px #ffea00, 0 0 20px #ff9100;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.arcade-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.arcade-btn {
+  background: rgba(20, 20, 45, 0.9);
+  color: #00e5ff;
+  border: 1px solid #00e5ff;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+  white-space: nowrap;
+}
+
+.arcade-btn:hover {
+  background: #00e5ff;
+  color: #000;
+  box-shadow: 0 0 14px #00e5ff;
+}
+
+.arcade-btn:active {
+  transform: scale(0.95);
+}
+
+/* Canvas Screen Bezel */
+.screen-bezel {
+  position: relative;
+  background: #000000;
+  padding: 6px;
+  border-radius: 12px;
+  border: 3px solid #1a1a3a;
+  box-shadow: 
+    0 0 30px rgba(0, 229, 255, 0.25),
+    inset 0 0 20px rgba(0, 0, 0, 0.8);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+canvas#gameCanvas {
+  display: block;
+  border-radius: 6px;
+  background: #020208;
+  image-rendering: pixelated;
+}
+
+/* CRT Scanlines Overlay */
+.scanlines {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  pointer-events: none;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.22) 50%
+  );
+  background-size: 100% 4px;
+  border-radius: 6px;
+  opacity: 0.55;
+}
+
+/* Ghost Legend Footer */
+.ghost-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 6px 12px;
+  margin-top: 6px;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.ghost-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.dot-blinky { color: #ff1744; text-shadow: 0 0 6px #ff1744; }
+.dot-pinky  { color: #ff4081; text-shadow: 0 0 6px #ff4081; }
+.dot-inky   { color: #00e5ff; text-shadow: 0 0 6px #00e5ff; }
+.dot-clyde  { color: #ff9100; text-shadow: 0 0 6px #ff9100; }
+
+/* Mobile Touch Controls */
+.mobile-dpad {
+  display: none;
+  grid-template-columns: repeat(3, 44px);
+  grid-template-rows: repeat(3, 44px);
+  gap: 5px;
+  margin-top: 6px;
+  justify-content: center;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .mobile-dpad {
+    display: grid;
+  }
+}
+
+.dpad-btn {
+  background: rgba(18, 18, 40, 0.85);
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-radius: 8px;
+  color: #00e5ff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.05s ease, transform 0.05s ease;
+}
+
+.dpad-btn:active, .dpad-btn.active {
+  background: #00e5ff;
+  color: #000;
+  box-shadow: 0 0 16px #00e5ff, inset 0 0 8px rgba(255, 255, 255, 0.8);
+  transform: scale(0.95);
+}
+
+.dpad-up    { grid-column: 2; grid-row: 1; }
+.dpad-left  { grid-column: 1; grid-row: 2; }
+.dpad-down  { grid-column: 2; grid-row: 3; }
+.dpad-right { grid-column: 3; grid-row: 2; }
+
+/* Responsive adjustments for narrow portrait screens */
+@media (max-width: 520px) {
+  .btn-label {
+    display: none;
+  }
+  .arcade-header {
+    padding: 4px 6px;
+    margin-bottom: 3px;
+  }
+  .game-title {
+    font-size: 10px;
+    letter-spacing: 0.5px;
+  }
+  .arcade-btn {
+    font-size: 9px;
+    padding: 4px 7px;
+  }
+  .screen-bezel {
+    padding: 4px;
+    border-width: 2px;
+  }
+  .ghost-legend {
+    font-size: 5.5px;
+    gap: 3px 6px;
+    margin-top: 3px;
+    max-width: 100%;
+  }
+  .mobile-dpad {
+    grid-template-columns: repeat(3, 38px);
+    grid-template-rows: repeat(3, 38px);
+    gap: 4px;
+    margin-top: 4px;
+  }
+}
+
+/* Landscape mobile optimization: Flank D-pad to the side so maze is never clipped or pushed offscreen */
+@media (orientation: landscape) and (max-height: 560px) {
+  .arcade-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 2px 8px;
+  }
+  .cabinet-main {
+    max-height: 100dvh;
+  }
+  .arcade-header {
+    padding: 3px 8px;
+    margin-bottom: 2px;
+  }
+  .game-title {
+    font-size: 9px;
+  }
+  .arcade-btn {
+    font-size: 6.5px;
+    padding: 3px 5px;
+  }
+  .screen-bezel {
+    padding: 3px;
+    border-width: 2px;
+  }
+  .ghost-legend {
+    font-size: 5.5px;
+    gap: 2px 6px;
+    margin-top: 2px;
+  }
+  .mobile-dpad {
+    display: grid;
+    grid-template-columns: repeat(3, 38px);
+    grid-template-rows: repeat(3, 38px);
+    gap: 4px;
+    margin-top: 0;
+    align-self: center;
+  }
+}
+
+/* Help Modal */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.modal-content {
+  background: #0d0d21;
+  border: 2px solid #00e5ff;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 460px;
+  width: 90%;
+  box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+  line-height: 1.8;
+  font-size: 9px;
+}
+
+.modal-title {
+  color: #ffea00;
+  font-size: 13px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.modal-list {
+  list-style: none;
+  margin-bottom: 14px;
+}
+
+.modal-list li {
+  margin-bottom: 8px;
+}
+
+.modal-close {
+  display: block;
+  margin: 0 auto;
+}
